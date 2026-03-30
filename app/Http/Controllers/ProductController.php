@@ -73,4 +73,12 @@ class ProductController extends Controller
         $products = Product::latest()->take(3)->get();
         return view('landing', compact('products'));
     }
+
+    // Menampilkan semua produk di halaman Shop
+    public function shop()
+    {
+        $products = Product::all();
+
+        return view('shop', compact('products'));
+    }
 }

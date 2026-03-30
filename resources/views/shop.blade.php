@@ -20,19 +20,46 @@
         <div class="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition duration-300">
 
             <!-- Image -->
-            <div class="h-64 flex items-center justify-center bg-gray-950">
-                <img src="{{ asset('images/logo.png') }}" 
-                     class="w-32 opacity-80 group-hover:scale-110 transition duration-300">
-            </div>
+            <div class="h-64 flex items-center justify-center bg-gray-950 overflow-hidden">
+        @php
+            // Kita buat pemetaan (mapping) ID Database ke Nama File Gambar Anda
+            $imageMapping = [
+                5  => 'nike-tee.jpg',    // NIKE (ID 5)
+                6  => 'adidas.jpg',      // Adidas Track Jacket (ID 6)
+                7  => 'carhart.jpg',   // Carhart Work Jacket (ID 7)
+                8  => 'vans-tee.jpg',  // Vans tee (ID 8)
+                9  => 'stussy.jpg',    // Stussy tee (ID 9)
+                10 => 'noah.jpeg',     // Noah tee (ID 10)
+                11 => 'supreme.jpg',   // Supreme Jacket (ID 11)
+                12 => 'bape.jpg',   // BAPE Jacket (ID 12)
+            ];
 
+            // Ambil nama file berdasarkan ID produk, jika tidak ada pakai logo.png
+            $displayImage = $imageMapping[$product->id] ?? 'logo.png';
+        @endphp
+        
+        <img src="{{ asset('images/' . $displayImage) }}" 
+             alt="{{ $product->name }}"
+             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+    </div>
+   
             <!-- Info -->
             <div class="p-5 border-t border-gray-800">
                 
-                <!-- Nama Produk (kosong dulu) -->
-                <div class="h-5 bg-gray-800 rounded w-3/4 mb-3"></div>
+                <!-- Nama Produk -->
+                <h3 class="text-white font-bold text-lg mb-1 uppercase tracking-tight">
+                    {{ $product->name }}
+                </h3>
 
-                <!-- Harga (kosong dulu) -->
-                <div class="h-5 bg-gray-800 rounded w-1/2"></div>
+                <!-- Harga -->
+                <p class="text-emerald-500 font-black text-xl">
+                    Rp{{ number_format($product->price, 0, ',', '.') }}
+                </p>
+
+                <!-- Stock -->
+                <div class="mt-2 text-gray-500 text-xs uppercase tracking-widest">
+                    Stock: 
+                </div>
 
             </div>
 

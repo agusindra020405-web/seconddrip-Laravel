@@ -110,5 +110,56 @@
         </div>
     </div>
 </section>
+<section>
+    <footer class="bg-gray-950 text-white pt-16 pb-8 px-6 md:px-16 border-t border-gray-800 mt-auto ">
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+            
+            <div>
+                <h4 class="font-black text-xl mb-5 uppercase tracking-tight text-white">
+                    Second <span class="text-emerald-500">Drip</span>
+                </h4>
+                <ul class="space-y-3 text-sm text-gray-400 font-medium">
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">Koleksi</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">Blog</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-5 uppercase tracking-wider text-gray-200">Help</h4>
+                <ul class="space-y-3 text-sm text-gray-400 font-medium">
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">Trust & Safety</a></li>
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">Buying</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-5 uppercase tracking-wider text-gray-200">Community</h4>
+                <ul class="space-y-3 text-sm text-gray-400 font-medium">
+                    <li><a href="#" class="hover:text-emerald-500 hover:underline transition">Forum</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 mt-8 flex flex-col md:row justify-between items-center gap-6">
+            
+            <div class="flex gap-8 text-xl text-gray-600">
+                <a href="#" class="hover:text-emerald-500 hover:-translate-y-1 transition duration-300"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-emerald-500 hover:-translate-y-1 transition duration-300"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-emerald-500 hover:-translate-y-1 transition duration-300"><i class="fab fa-x-twitter"></i></a>
+            </div>
+            
+            <p class="text-sm text-gray-600 font-mono tracking-widest uppercase">
+                &copy; Second Drip 2026
+            </p>
+        </div>
+    </div>
+</footer>
+</section>
 
 @endsection

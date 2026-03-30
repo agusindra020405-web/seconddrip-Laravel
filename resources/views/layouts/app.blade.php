@@ -25,7 +25,7 @@
                     <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
                     <a href="{{ url('/shop') }}" class="hover:text-emerald-400 transition-colors">Shop</a>
                     <a href="#our-story" class="hover:text-emerald-400 transition-colors">Our Story</a>
-                    <a href="#" class="hover:text-emerald-400 transition-colors">Contact</a>
+                    <a href="#contact" class="hover:text-emerald-400 transition-colors">Contact</a>
                 </div>
 
                 <div class="flex items-center gap-6">
@@ -42,16 +42,23 @@
                         <span class="absolute -top-2 -right-2 bg-emerald-500 text-[9px] text-black font-bold px-1.5 py-0.5 rounded-full">0</span>
                     </button>
 
-                    <div class="hidden md:flex items-center border-l border-gray-700 ml-2 pl-6 gap-4 text-[10px] font-bold uppercase tracking-widest">
+                    <div class="hidden md:flex items-center gap-6 border-l border-gray-700 ml-2 pl-6 text-[10px] font-bold uppercase tracking-widest">
                         @guest
-                        <a href="#" class="text-gray-400 hover:text-white">Login</a>
-                        <a href="#" class="bg-white text-black px-4 py-2 rounded-sm hover:bg-emerald-500 hover:text-white transition text-center">Join</a>
+                        <a href="{{ route('login') }}" class="text-gray-400 hover:text-white">Login</a>
+
+                        <a href="{{ route('register') }}" 
+                            class="bg-white text-black px-4 py-2 rounded-sm hover:bg-emerald-500 hover:text-white transition text-center">
+                            Join
+                        </a>
                         @else
-                            <a href="#" class="text-emerald-400">{{ Auth::user()->name }}</a>
-                            <form action="{{ route('logout') }}" method="POST" class="inline">
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <span class="text-sm normal-case">Hi {{ auth()->user()->name }}</span>
+                            <span class="h-5 w-px bg-gray-600"></span>
+                            <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="text-red-400 hover:text-red-200">Logout</button>
+                                <button type="submit" class="text-gray-400 hover:text-white">Logout</button>
                             </form>
+                        </div>
                         @endguest
                     </div>
 
@@ -67,10 +74,35 @@
                 <a href="#" class="block text-sm font-bold uppercase tracking-widest text-gray-300">Home</a>
                 <a href="#" class="block text-sm font-bold uppercase tracking-widest text-gray-300">Shop</a>
                 @guest
-                    <a href="#" class="block text-sm font-bold uppercase tracking-widest text-emerald-400">Login</a>
+                    <a href="{{ route('login') }}" class="block text-sm font-bold uppercase tracking-widest text-emerald-400">Login</a>
+                    <a href="{{ route('register') }}" class="block text-sm font-bold uppercase tracking-widest text-white bg-emerald-500 px-4 py-2 rounded-sm">Join</a>
+                @else
+                    <div class="space-y-2">
+                        <span class="block text-sm font-bold uppercase tracking-widest text-gray-300">Hi {{ auth()->user()->name }}</span>
+                        <span class="block h-px w-full bg-gray-700"></span>
+                        <a href="{{ route('logout') }}" class="block text-sm font-bold uppercase tracking-widest text-emerald-400"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                        @csrf
+                    </form>
                 @endguest
             </div>
         </nav>
+
+        @if(session('error'))
+            <div class="bg-red-500 text-white text-center py-3 font-semibold">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if(session('success'))
+            <div class="bg-emerald-500 text-black text-center py-3 font-semibold">
+                {{ session('success') }}
+             </div>
+        @endif
 
         <main>
             @yield('content')
