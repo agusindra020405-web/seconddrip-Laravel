@@ -22,26 +22,18 @@
 
             <!-- Image -->
             <div class="h-64 flex items-center justify-center bg-gray-950 overflow-hidden">
-        @php
-            // Kita buat pemetaan (mapping) ID Database ke Nama File Gambar Anda
-            $imageMapping = [
-                5  => 'nike-tee.jpg',    // NIKE (ID 5)
-                6  => 'adidas.jpg',      // Adidas Track Jacket (ID 6)
-                7  => 'carhart.jpg',   // Carhart Work Jacket (ID 7)
-                8  => 'vans-tee.jpg',  // Vans tee (ID 8)
-                9  => 'stussy.jpg',    // Stussy tee (ID 9)
-                10 => 'noah.jpeg',     // Noah tee (ID 10)
-                11 => 'supreme.jpg',   // Supreme Jacket (ID 11)
-                12 => 'bape.jpg',   // BAPE Jacket (ID 12)
-            ];
-
-            // Ambil nama file berdasarkan ID produk, jika tidak ada pakai logo.png
-            $displayImage = $imageMapping[$product->id] ?? 'logo.png';
-        @endphp
-        
-        <img src="{{ asset('images/' . $displayImage) }}" 
+       @if($product->image)
+            {{-- Jika ada gambar di database, ambil dari folder storage --}}
+            <img src="{{ asset('storage/' . $product->image) }}" 
              alt="{{ $product->name }}"
              class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+        @else
+            {{-- Jika gambar kosong, tampilkan logo default --}}
+            <img src="{{ asset('images/logo.png') }}" 
+                alt="Default Logo"
+                class="w-24 opacity-50">
+        @endif
+        
     </div>
    
             <!-- Info -->

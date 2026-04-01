@@ -27,9 +27,18 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        Product::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            // Simpan file ke storage/app/public/products
+            $imagePath = $request->file('image')->store('products', 'public');
+            $data['image'] = $imagePath;
+        }
+
+        Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
     }
@@ -53,10 +62,23 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Tambahkan validasi image
         ]);
 
-        $product->update($request->all());
+        $data = $request->all();
 
+        if ($request->hasFile('image')) {
+            // Hapus foto lama di folder jika ada (opsional agar storage tidak penuh)
+            if ($product->image) {
+                \Storage::disk('public')->delete($product->image);
+            }
+
+            // Simpan foto baru
+            $imagePath = $request->file('image')->store('products', 'public');
+            $data['image'] = $imagePath;
+        }
+
+        $product->update($data);
         return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui!');
     }
 
@@ -71,7 +93,7 @@ class ProductController extends Controller
     public function landing()
     {
         // Mengambil produk untuk ditampilkan di marquee
-        $products = Product::all(); 
+        $products = Product::all();
         return view('landing', compact('products'));
     }
 
@@ -85,6 +107,6 @@ class ProductController extends Controller
 
     public function shopDetail(Product $product)
     {
-         return view('shop-detail', compact('product'));
+        return view('shop-detail', compact('product'));
     }
 }

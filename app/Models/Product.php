@@ -10,5 +10,5 @@ class Product extends Model
     use HasFactory;
 
     // Tambahkan baris ini supaya data bisa disimpan ke database
-    protected $fillable = ['name', 'price', 'stock'];
+    protected $fillable = ['name', 'price', 'stock', 'image'];
 }
