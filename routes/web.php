@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', [ProductController::class, 'landing']);
 
@@ -30,3 +31,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/shop/{product}', [ProductController::class, 'shopDetail'])->name('shop.detail');
 
+//cart controller
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::delete('/remove-from-cart', [CartController::class, 'remove'])->name('cart.remove');

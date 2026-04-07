@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -60,7 +61,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required|numeric',
+            'price' => ['required', 'numeric'],
             'stock' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Tambahkan validasi image
         ]);
@@ -70,7 +71,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             // Hapus foto lama di folder jika ada (opsional agar storage tidak penuh)
             if ($product->image) {
-                \Storage::disk('public')->delete($product->image);
+                Storage::disk('public')->delete($product->image);
             }
 
             // Simpan foto baru
